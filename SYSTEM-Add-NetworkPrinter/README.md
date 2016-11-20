@@ -1,6 +1,6 @@
-# New-NetworkPrinter
+# Add-NetworkPrinter
 
-New-NetworkPrinter add one or several printer to the host (local). Specify a list of network printers that you want to add.
+Add-NetworkPrinter add one or several printer to the host (local). Specify a list of network printers that you want to add.
 
 # Example
 
@@ -20,4 +20,4 @@ Or
 
 - DeleteAllNetworkPrinter : Boolean to delete or not the others network printers installed on the computer. By default, network printers aren't delete.
 
-![alt tag](https://github.com/florianburnel/PowerShell/blob/master/SYSTEM-New-NetworkPrinter/Images/New-NetworkPrinter-Example.png?raw=true)
+![alt tag](https://raw.githubusercontent.com/florianburnel/PowerShell/master/SYSTEM-Add-NetworkPrinter/Images/Add-NetworkPrinter-Exemple.png)
