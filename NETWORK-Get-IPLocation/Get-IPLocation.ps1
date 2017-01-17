@@ -1,4 +1,36 @@
-﻿function Get-IPLocation{
+﻿<#
+.SYNOPSIS
+	This script geolocation one or several IP address by a web request on the website geoipview.com
+
+.DESCRIPTION
+    Specify a list of IP address that you want to geolocation, and the function return the city and the country (origin) of the IP.
+
+.PARAMETER IPToCheck
+    The list of IP address, it's a required parameter.
+
+.EXAMPLE
+    .\Get-IPLocation -IPToCheck "4.4.4.4","8.8.8.8"
+    Get the location of two IP address : 4.4.4.4 and 8.8.8.8
+
+.INPUTS
+
+.OUTPUTS
+	
+.NOTES
+	NAME:	Get-IPLocation.ps1
+	AUTHOR:	Florian Burnel
+	EMAIL:	florian.burnel@it-connect.fr
+	WWW:	www.it-connect.fr
+	Twitter:@FlorianBurnel
+
+	VERSION HISTORY:
+
+	1.0 	2017.01.17
+		    Initial Version
+
+#>
+
+function Get-IPLocation{
 
     param(
         [ipaddress[]]$IPToCheck
