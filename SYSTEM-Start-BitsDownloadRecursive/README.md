@@ -5,7 +5,7 @@ Download files recursively with BITS with the same arborescence (after the downl
 # Example
 
 ```
-    .\Start-BitsDownloadRecursive.ps1 -Source "\\192.168.1.150\Download\BITS\" -Dest "C:\temp\BITS"
+    .\Start-BitsDownloadRecursive.ps1 -Source "\\192.168.1.150\Download\BITS" -Dest "C:\temp\BITS"
 ```
 
 - Source : The path to the source folder, all files in his subfolders will be copied. PLEASE, DO NOT INCLUDE A BACKSLASH AT THE END OF THE PATH
