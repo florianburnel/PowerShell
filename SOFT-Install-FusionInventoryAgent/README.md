@@ -18,4 +18,4 @@ This script is provided AS IS
 
 - GLPIUri : This parameter contains the URI of the GLPI Server / Example : https://glpi.mydomain.fr/glpi/plugins/fusioninventory
 
-![alt tag](https://raw.githubusercontent.com/florianburnel/PowerShell/master/SYSTEM-Add-NetworkPrinter/Images/Add-NetworkPrinter-Exemple.png)
+![alt tag](https://raw.githubusercontent.com/florianburnel/PowerShell/master/SOFT-Install-FusionInventoryAgent/Images/Install-FusionInventoryAgent.png)
