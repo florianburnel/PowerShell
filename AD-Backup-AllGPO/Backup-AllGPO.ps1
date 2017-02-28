@@ -61,7 +61,7 @@ Import-Module GroupPolicy -ErrorAction SilentlyContinue -ErrorVariable +ErrorImp
 
 if($ErrorImportModule){
 
-    Write-Host "WARNING : Something went wront during the module importation" -ForegroundColor DarkYellow
+    Write-Output "WARNING : Something went wront during the module importation"
 
 }else{
 
@@ -73,7 +73,7 @@ if($ErrorImportModule){
     # Create the destination folder, if not exist
     if(!(Test-Path $DestinationFullPath)){
 
-        Write-Host "Destination folder will be create : $DestinationFullPath" -ForegroundColor Green
+        Write-Output "Destination folder will be create : $DestinationFullPath"
         New-Item -Path $DestinationFullPath -ItemType Directory -ErrorAction SilentlyContinue -ErrorVariable ErrorNewItem
         
     } # if(!(Test-Path $DestinationFullPath))
@@ -81,7 +81,7 @@ if($ErrorImportModule){
     # If the destination folder is OK, backup all the GPO into this folder
     if($ErrorNewItem){
 
-        Write-Host "WARNING : The creation of the destination folder failed !" -ForegroundColor DarkYellow    
+        Write-Output "WARNING : The creation of the destination folder failed !"
     
     }else{
 
@@ -92,32 +92,32 @@ if($ErrorImportModule){
     # Compare the number of GPO with the number of subfolder in the destination path
     if((Get-ChildItem -Path $DestinationFullPath -Exclude "GPOStarter").Count -eq (Get-GPO -Domain $DomainName -All).Count){
 
-        Write-Host "GPO - Backup complete : " $(Get-ChildItem -Path $DestinationFullPath).Count "/" $(Get-GPO -Domain $DomainName -All).Count -ForegroundColor Green
+        Write-Output "GPO - Backup complete : $((Get-ChildItem -Path $DestinationFullPath).Count) / $((Get-GPO -Domain $DomainName -All).Count)"
 
         # Backup is complete, we can delete older backup if it necessary (it depends of the number of backup to keep VS the number of actual backup)
         $BackupTotal = (Get-ChildItem -Path $Destination).Count
 
         if($BackupTotal -gt $BackupToKeep){
 
-            Write-Host "There are more than $BackupToKeep backup(s) in the backup folder !" -ForegroundColor Yellow
+            Write-Output "There are more than $BackupToKeep backup(s) in the backup folder !"
 
             # Calculate the number of backups to delete
             $BackupToDelete = $BackupTotal - $BackupToKeep
 
-            Write-Host "There are $BackupToDelete backup(s) to delete" -ForegroundColor Yellow
+            Write-Output "There are $BackupToDelete backup(s) to delete"
 
             # Identify older backups and delete them
-            Get-ChildItem -Path $Destination | Select Name -First $BackupToDelete | foreach{ Remove-Item -Path "$Destination\$($_.Name)" -Recurse -Force }
+            Get-ChildItem -Path $Destination | Select-Object Name -First $BackupToDelete | ForEach-Object{ Remove-Item -Path "$Destination\$($_.Name)" -Recurse -Force }
 
         }else{
 
-            Write-Host "No needs to delete some backups for the moment" -ForegroundColor Green
+            Write-Output "No needs to delete some backups for the moment"
 
         } # if($BackupTotal -gt $BackupToKeep)
 
     }else{
 
-        Write-Host "WARNING : GPO - Backup incomplete : " $(Get-ChildItem -Path $DestinationFullPath -Exclude "GPOStarter").Count "/" $(Get-GPO -Domain $DomainName -All).Count -ForegroundColor DarkYellow
+        Write-Output "WARNING : GPO - Backup incomplete : $((Get-ChildItem -Path $DestinationFullPath -Exclude "GPOStarter").Count) / $((Get-GPO -Domain $DomainName -All).Count)"
 
     } # if((Get-ChildItem -Path $DestinationFullPath).Count -eq (Get-GPO -Domain $DomainName -All).Count)
 

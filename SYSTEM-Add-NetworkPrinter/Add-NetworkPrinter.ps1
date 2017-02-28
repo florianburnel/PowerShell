@@ -53,25 +53,25 @@ PARAM(
 # If $DeleteAllNetworkPrinter is true, network printers are deleted
 if($DeleteAllNetworkPrinter -eq $true){
 
-    Get-WMIObject Win32_Printer | where{$_.Network -eq "true"} | foreach{ $_.delete() }
+    Get-WMIObject Win32_Printer | Where-Object{$_.Network -eq "true"} | ForEach-Object{ $_.delete() }
 
 } # if($DeleteAllNetworkPrinter -eq $true)
 
 #  Each network printer is installed
 Foreach($Printer in $Name){
 
-    if(!(Get-WMIObject Win32_Printer | where{$_.Name -eq $Printer})){
+    if(!(Get-WMIObject Win32_Printer | Where-Object{$_.Name -eq $Printer})){
 
         $PrinterClass = [wmiclass]"win32_printer" 
         $PrinterClass.AddPrinterConnection($Printer) | Out-Null
 
-    } # if(!(Get-WMIObject Win32_Printer | where{$_.Name -eq $Name}))
+    } # if(!(Get-WMIObject Win32_Printer | Where-Object{$_.Name -eq $Name}))
 
 } # Foreach($Printer in $Name)
 
 # Define the default printer if it's define by the user
 if($DefaultPrinter -ne ""){
 
-    (Get-WmiObject -ComputerName . -Class Win32_Printer | Where{ $_.Name -eq $DefaultPrinter }).SetDefaultPrinter()
+    (Get-WmiObject -ComputerName . -Class Win32_Printer | Where-Object{ $_.Name -eq $DefaultPrinter }).SetDefaultPrinter()
 
 } # if($DefaultPrinter -ne "")

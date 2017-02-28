@@ -30,9 +30,7 @@
 
 #>
 
-function Get-IPLocation{
-
-    param(
+   param(
         [ipaddress[]]$IPToCheck
     )
 
@@ -66,7 +64,3 @@ function Get-IPLocation{
         New-Object -TypeName PSObject -Property $Hashtable | Select-Object -Property YourIP, TargetIP, Country, City, GoogleMaps
 
     } # foreach($IPAddress in $IPToCheck)
-
-$Result
-
-}

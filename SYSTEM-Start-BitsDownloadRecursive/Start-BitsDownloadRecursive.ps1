@@ -50,7 +50,7 @@ Import-Module BitsTransfer -ErrorAction SilentlyContinue -ErrorVariable ModuleSt
 # Continue only if the module is correctly imported
 if(!($ModuleState)){
 
-    Get-ChildItem $Source -Recurse -Directory | foreach{
+    Get-ChildItem $Source -Recurse -Directory | ForEach-Object{
         
         # Start the download of files which are in the root of the source
         if((Get-BitsTransfer -Name "Root-Source" -ErrorAction SilentlyContinue).Count -eq 0){
@@ -77,7 +77,7 @@ if(!($ModuleState)){
             
             }else{
 
-                Write-Host "ERROR ! Impossible to create the destination folder ($DestChild) !" -ForegroundColor Red
+                Write-Output "ERROR ! Impossible to create the destination folder ($DestChild) !"
             
             } # if(!($FolderCreation))
 
@@ -97,16 +97,16 @@ if(!($ModuleState)){
     # Check that the source and the destination are the same number of elements
     if((Get-ChildItem $Source -Recurse).Count -eq (Get-ChildItem $Dest -Recurse).Count){
 
-        Write-Host "Transfer complete ! All elements are transferred !" -ForegroundColor Green
+        Write-Output "Transfer complete ! All elements are transferred !"
 
     }else{
 
-        Write-Host "ERROR ! One or several elements aren't transferred !" -ForegroundColor Red
+        Write-Output "ERROR ! One or several elements aren't transferred !"
 
     } # if((Get-ChildItem $Source -Recurse).Count -eq (Get-ChildItem $Dest -Recurse).Count)
 
 }else{
 
-    Write-Host "ERROR ! Impossible to load the module BitsTransfer" -ForegroundColor Red
+    Write-Output "ERROR ! Impossible to load the module BitsTransfer"
 
 } # if(!($ModuleState))
