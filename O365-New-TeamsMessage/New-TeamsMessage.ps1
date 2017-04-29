@@ -41,8 +41,7 @@
 
 #>
 param(
-    #[parameter(Mandatory=$true)][ValidatePattern("^https://outlook.office.com/webhook/*")][string]$WebhookURL,
-    [parameter(Mandatory=$true)][string]$WebhookURL,
+    [parameter(Mandatory=$true)][ValidatePattern("^https://outlook.office.com/webhook/*")][string]$WebhookURL,
     [parameter(Mandatory=$true)][string]$MessageText,
     [parameter(Mandatory=$false)][string]$MessageTitle,
     [parameter(Mandatory=$false)][ValidatePattern("^[A-F,0-9]{6}$")][string]$MessageColor
