@@ -12,4 +12,4 @@ What are the GPOs modified in the last X days ? The script detects which GPOs ar
 
 - LastXDays : Number of days to consider for detect a change in one of the GPO (Example : 7 (for 7 days))
 
-![alt tag](https://raw.githubusercontent.com/florianburnel/PowerShell/master/AD-Show-GPOEditLastXDay/Images/Show-GPOEditLastXDay-Example.png)
+![alt tag](https://raw.githubusercontent.com/florianburnel/PowerShell/master/AD-Show-GPOEditLastXDay/Images/Show-GPOEditLastXDay-example.png)
