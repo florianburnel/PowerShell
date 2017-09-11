@@ -281,7 +281,7 @@ process {
         # Exclude empty line(s)
         $AuditADResult = $AuditADResult | Where{ $_.MonitoringGroup -ne $null }
 
-        # Export the objects collection $IperiusResult in the HTML format
+        # Export the objects collection $AuditADResult in the HTML format
         $AuditADResult | ConvertTo-Html -Head $CSSInHeader -PreContent "<h2 style='border-bottom: 2px solid; padding-bottom: 15px;'>Active Directory - Audit - Group Change - $Date</h2><div class='Counter'><strong><span style='color:#000'>Nothing : $CountNothing</span>&nbsp;-&nbsp;<span style='color:#008000'>Added : $CountAdded</span>&nbsp;-&nbsp;<span style='color:#F70000'>Removed : $CountRemoved</span></strong></div></br>" -PostContent "</br><i>Rapport généré le $(Get-Date -Format "dd/MM/yyyy") sur le serveur $env:COMPUTERNAME</i>" | 
                        Foreach{ 
                 
