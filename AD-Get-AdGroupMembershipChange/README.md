@@ -23,6 +23,8 @@ If any differences are found (added or removed) the script will update the CSV f
 
 - ExportAsHTML : Path to the file for the html report
 
+For information, you must adapt two values into the script : "From" and "SmtpServer" for email notification
+
 ![alt tag](https://raw.githubusercontent.com/florianburnel/PowerShell/master/AD-Get-AdGroupMembershipChange/Images/Get-AdGroupMembershipChange_1.png)
 
 ![alt tag](https://raw.githubusercontent.com/florianburnel/PowerShell/master/AD-Get-AdGroupMembershipChange/Images/Get-AdGroupMembershipChange_2.png)

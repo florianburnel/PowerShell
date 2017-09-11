@@ -126,10 +126,10 @@ begin {
         
         # Parameters
         $Params = @{
-            'From' = 'Active Directory Administrator <btpcfa-bn-active-directory@deliberata.fr>'
+            'From' = 'Active Directory Administrator <audit-active-directory@mydomain.fr>'
             'To' = $Email
             'Subject' = 'Active Directory - Audit - Group Change'
-            'SmtpServer' = 'S014119'
+            'SmtpServer' = 'smtp.mydomain.fr'
             'Body' = $ReportContent
             'BodyAsHtml' = $true
             'Encoding' = [System.Text.Encoding]::UTF8
