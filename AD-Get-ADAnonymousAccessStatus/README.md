@@ -14,6 +14,6 @@ So, if the value if "not defined", it's OK because equal 0. But if the value is 
 
 # Changelog
 	        
-1.0.0 	2018.01.25
+**1.0.0 - 2018.01.25**
 
-        Initial Version
+Initial Version
