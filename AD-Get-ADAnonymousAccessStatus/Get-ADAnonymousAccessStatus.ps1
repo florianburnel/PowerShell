@@ -1,4 +1,18 @@
-﻿<#
+﻿<#PSScriptInfo
+    .VERSION 1.0.1
+    .GUID c9c0f8f8-d4ae-45a0-803c-3a6e1cb5c834
+    .AUTHOR florian.burnel
+    .TAGS ActiveDirectory
+    .LICENSEURI https://raw.githubusercontent.com/Netboot-France/Get-MsolUserLicence/master/LICENSE
+    .PROJECTURI https://github.com/florianburnel/PowerShell/tree/master/AD-Get-ADAnonymousAccessStatus
+    .ICONURI
+    .EXTERNALMODULEDEPENDENCIES
+    .REQUIREDSCRIPTS 
+    .EXTERNALSCRIPTDEPENDENCIES 
+    .RELEASENOTES
+#>
+
+<#
         .SYNOPSIS
         
          This script query the Active Directory to check the unicode value "dsHeuristics".
@@ -23,6 +37,9 @@
 	        
         1.0.0 	2018.01.25
 	            Initial Version
+				
+		1.0.1   2018.01.25
+				Add block "PSScriptInfo" for PowerShell Gallery
 #>
 
 $TargetDN = ("CN=Directory Service,CN=Windows NT,CN=Services,CN=Configuration," + (Get-ADDomain).DistinguishedName)

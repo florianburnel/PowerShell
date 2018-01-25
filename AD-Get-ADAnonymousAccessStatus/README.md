@@ -17,3 +17,7 @@ So, if the value if "not defined", it's OK because equal 0. But if the value is 
 **1.0.0 - 2018.01.25**
 
 Initial Version
+
+**1.0.1   2018.01.25**
+
+Add block "PSScriptInfo" for PowerShell Gallery
