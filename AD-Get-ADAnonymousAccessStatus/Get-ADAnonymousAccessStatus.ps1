@@ -10,10 +10,11 @@
     .REQUIREDSCRIPTS 
     .EXTERNALSCRIPTDEPENDENCIES 
     .RELEASENOTES
+    .DESCRIPTION This script query the Active Directory to check the unicode value "dsHeuristics". The 7th value of this settings determine if anonymous access is authorized or not in your environment. So, if the value if "not defined", it's OK because equal 0. But if the value is 2, it's bad !
 #>
 
 <#
-        .SYNOPSIS
+.DESCRIPTION
         
          This script query the Active Directory to check the unicode value "dsHeuristics".
          The 7th value of this settings determine if anonymous access is authorized or not in your environment.
