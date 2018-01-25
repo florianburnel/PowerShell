@@ -1,9 +1,9 @@
 ﻿<#PSScriptInfo
     .VERSION 1.0.1
-    .GUID c9c0f8f8-d4ae-45a0-803c-3a6e1cb5c834
+    .GUID cd46c714-bb58-4416-947b-1691b8185859
     .AUTHOR florian.burnel
     .TAGS ActiveDirectory
-    .LICENSEURI https://raw.githubusercontent.com/Netboot-France/Get-MsolUserLicence/master/LICENSE
+    .LICENSEURI
     .PROJECTURI https://github.com/florianburnel/PowerShell/tree/master/AD-Get-ADAnonymousAccessStatus
     .ICONURI
     .EXTERNALMODULEDEPENDENCIES
