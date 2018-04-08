@@ -10,7 +10,6 @@
         CSV file to reflect current memberships and notify an administrator of which members were either added or removed.
         
         .NOTES
-
 	    NAME:	Get-AdGroupMembershipChange.ps1
 	    AUTHOR:	Florian Burnel (from the original script of Adam D. Bertram)
 	    EMAIL:	florian.burnel@it-connect.fr
@@ -28,23 +27,26 @@
  
         .PARAMETER Group
         One or more group names to monitor for membership changes
-
         .PARAMETER Email
         The email address of the administrator that would like to get notified of group changes.
         The notification contain an HTML report.
-
         .PARAMETER LogFilePath
         This file logs the different actions in monitored groups
-
         .PARAMETER GroupFilePath
         This is the file that will record the most recent group membership and will be used to compare current to most recent.
         It's the reference file.
-
         .PARAMETER SendByEmail
         Boolean, if it's true notification will be send by email, otherwise the result will be only export in HTML or display in the console (it depends on ExportAsHTML)
-
         .PARAMETER ExportAsHTML
         Path to the file for the html report
+
+        .HISTORY
+
+        v1.0.0 - Initial version - 11/09/2017
+        v1.0.1 - Minor corrections - 08/04/2018
+               * Remove option "Mandatory" of the parameter ExportASHTML
+               * Add a condition to send an e-mail only when there is one or several changes, and if $SendByEmail is $true
+
 #>
 [CmdletBinding(SupportsShouldProcess)]
 [OutputType('System.Management.Automation.PSCustomObject')]
@@ -58,13 +60,12 @@ param (
     [Parameter()]
     [string]$LogFilePath = "$PsScriptRoot\AdGroupMembershiplogfile.csv",
     [string]$GroupFilePath = "$PsScriptRoot\AdGroupMembershipChange.csv",
-    [Parameter(Mandatory)][string]$ExportASHTML = "$PsScriptRoot\AdGroupMembershipChange.html",
+    [string]$ExportASHTML = "$PsScriptRoot\AdGroupMembershipChange.html",
     [boolean]$SendByEmail = $false
 )
  
 begin {
     $ErrorActionPreference = [System.Management.Automation.ActionPreference]::Stop
-
     Set-strictMode -off
     
     # Write log in the logfile
@@ -120,7 +121,6 @@ begin {
     }
    
     function Send-ChangeNotification {
-
         # Get the log content
         $ReportContent = Get-Content $ExportASHTML | Out-String
         
@@ -134,17 +134,14 @@ begin {
             'BodyAsHtml' = $true
             'Encoding' = [System.Text.Encoding]::UTF8
         }
-
         # Send the message
         Send-MailMessage @Params
     
     } # function Send-ChangeNotification
-
     # Initialize counters
     [int]$script:CountNothing = 0
     [int]$script:CountAdded = 0
     [int]$script:CountRemoved = 0
-
 }
  
 process {
@@ -194,9 +191,7 @@ process {
                             "Member" = "-" ;
                             "Action" = "Nothing"
                         }
-
                         $script:CountNothing++
-
                     } else {
                         
                         $RemovedMembers = $ComparedMembers | Where-Object {$_.SideIndicator -eq '<=' } | foreach {"$($_.InputObject)"}
@@ -209,7 +204,6 @@ process {
                         
                             Write-Log -Message "Found [$($RemovedMembers.Count)] members that have been removed since last check"
                             Write-Log -Message "Emailed change notification to $Email"
-
                             ## Remove the members from the CSV file to keep the file current
                             (Import-Csv -Path $GroupFilePath | Where-Object {$RemovedMembers -notcontains $_.Member}) | Export-Csv -Path $GroupFilePath -NoTypeInformation
                         
@@ -231,10 +225,8 @@ process {
                              Write-Log -Message 'No members have been removed since last check'
                          
                          } else {
-
                              Write-Log -Message "Found [$($AddedMembers.Count)] members that have been added since last check"
                              Write-Log -Message "Emailed change notification to $Email"
-
                              ## Add the members from the CSV file to keep the file current
                              $AddedMembers | foreach {[pscustomobject]@{'Group' = $g; 'Member' = $_}} | Export-Csv -Path $GroupFilePath -Append -NoTypeInformation
                         
@@ -246,10 +238,8 @@ process {
                                      "Member" = $Member ;
                                      "Action" = "Added"
                                  }
-
                                  $script:CountAdded++
                             }
-
                          } # if (-not $AddedMembers)
                        
                     }
@@ -258,14 +248,10 @@ process {
             } # if (-not $CurrentMembers)
  
         }
-
     # Generate a HTML report if the parameter ExportAsHTML contain a path
     if(-not $ExportASHTML){
-
         $AuditADResult | Format-Table -AutoSize
-
     }else{
-
         # CSS style for the HTML page
         $CSSInHeader = "<style>th{background-color : #000071; color : #fff; padding: 10px}
                                body{padding: 5px; font-family: Calibri;}
@@ -277,10 +263,8 @@ process {
         
         # Date of the day
         $Date = Get-Date -Format "dd/MM/yyyy"
-
         # Exclude empty line(s)
         $AuditADResult = $AuditADResult | Where{ $_.MonitoringGroup -ne $null }
-
         # Export the objects collection $AuditADResult in the HTML format
         $AuditADResult | ConvertTo-Html -Head $CSSInHeader -PreContent "<h2 style='border-bottom: 2px solid; padding-bottom: 15px;'>Active Directory - Audit - Group Change - $Date</h2><div class='Counter'><strong><span style='color:#000'>Nothing : $CountNothing</span>&nbsp;-&nbsp;<span style='color:#008000'>Added : $CountAdded</span>&nbsp;-&nbsp;<span style='color:#F70000'>Removed : $CountRemoved</span></strong></div></br>" -PostContent "</br><i>Rapport généré le $(Get-Date -Format "dd/MM/yyyy") sur le serveur $env:COMPUTERNAME</i>" | 
                        Foreach{ 
@@ -304,11 +288,16 @@ process {
                
                        } | Out-File $ExportASHTML
 
+        # Send an e-mail notification if $SendByEmail is true and there is at least 1 change
         if($SendByEmail -eq $true){
         
-            Send-ChangeNotification
+            if(($CountAdded -gt 0) -or ($CountRemoved -gt 0)){
+            
+                Send-ChangeNotification
+
+            } # if(($CountAdded -gt 0) -or ($CountRemoved -gt 0))
         
-        }    
+        } # if($SendByEmail -eq $true)   
 
     } # if($ExportAsHTML -eq $false)
  
