@@ -79,6 +79,7 @@ if(Test-Path "$BackupDest/mount.file"){
      if($ReferenceDate -gt $ItemCreationTime){
 
         Write-Output "The file <$($_.Name)> is older than $DeleteBackupOlderThanXDays days"
+		Remove-Item -Path "$($_.Fullname)" -Force -Confirm:$false
 
      } # if($ReferenceDate -gt $ItemCreationTime)
   }
