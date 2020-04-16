@@ -64,3 +64,5 @@
         New-Object -TypeName PSObject -Property $Hashtable | Select-Object -Property YourIP, TargetIP, Country, City, GoogleMaps
 
     } # foreach($IPAddress in $IPToCheck)
+    
+    return $Result
