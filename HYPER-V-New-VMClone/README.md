@@ -1,6 +1,6 @@
 # New-VMClone
 
-En s'appuyant sur les fonctionnalités d'export et d'importer d'Hyper-V, nous allons cloner une machine virtuelle existante.
+En s'appuyant sur les fonctionnalités d'export et d'import Hyper-V, nous allons cloner une machine virtuelle existante.
 Cette version n'intègre pas de paramètres, il faut modifier les valeurs suivantes directement dans le script : $VMSourceName (VM source à cloner), $VMCloneName (nom du clone),
 $VMCloneExportPath (dossier dans lequel stocker l'export), $VMCloneImportConfigPath (dossier dans lequel créer les fichiers de configuration de la VM importée), $VMCloneImportVhdxPath (dossier dans lequel stocker les disques
 virtuels de la VM importée)
