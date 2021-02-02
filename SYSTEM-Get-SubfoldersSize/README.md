@@ -4,5 +4,4 @@ Précisez un dossier comme valeur de la variable $RootFolder et obtenez la taille
 
 # Links
 
-[Obtenir la taille des dossiers avec PowerShell]
-(https://www.it-connect.fr/obtenir-la-taille-des-dossiers-avec-powershell/)
+[Obtenir la taille des dossiers avec PowerShell](https://www.it-connect.fr/obtenir-la-taille-des-dossiers-avec-powershell/)
