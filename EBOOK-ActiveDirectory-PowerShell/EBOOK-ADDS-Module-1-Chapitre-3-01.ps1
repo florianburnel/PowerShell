@@ -24,7 +24,7 @@ Foreach($Feature in $FeatureList){
 
      Try{
 
-        Add-WindowsFeature-Name $Feature -IncludeManagementTools -IncludeAllSubFeature
+        Add-WindowsFeature -Name $Feature -IncludeManagementTools -IncludeAllSubFeature
 
         Write-Output "$Feature : Installation is a success !"
 
