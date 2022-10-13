@@ -53,9 +53,9 @@ Function Send-MailMessageForUser{
     # Corps de l'email pour les utilisateurs
     $SendMailBody=@"
 <p>Bonjour $SendMailUserGivenName,</p>
-<p>Dans <b>moins de $DateThreshold jours</b>, le mot de passe du compte <b>$SendMailUserPrincipalName</b> va expirer.</br>
+<p>Dans <b>moins de $DateThreshold jours</b>, le mot de passe du compte <b>$SendMailUserPrincipalName</b> va expirer.<br>
 <b>Pensez à le changer</b> avant qu'il arrive à expiration (date d'expiration : $SendMailUserPasswordExpirationDate)</p>
-Cordialement,</br>
+Cordialement,<br>
 Le service informatique
 "@
 
@@ -108,7 +108,7 @@ Foreach($User in $UsersInfos){
 if(($SendReportAdmin -eq $true) -and ($UsersNotifList.Count -ne 0)){
 
     # Corps de l'e-mail (sous la forme d'un tableau)
-    $SendMailAdminBody = $UsersNotifList | ConvertTo-HTML -PreContent "Bonjour,</br><p>Voici la liste des comptes Active Directory dont le mot de passe expire dans moins de $DateThreshold jours.</p>" | Out-String | ForEach-Object{
+    $SendMailAdminBody = $UsersNotifList | ConvertTo-HTML -PreContent "Bonjour,<br><p>Voici la liste des comptes Active Directory dont le mot de passe expire dans moins de $DateThreshold jours.</p>" | Out-String | ForEach-Object{
                                     $_  -replace "<table>","<table style='border: 1px solid;'>" `
                                         -replace "<th>","<th style='border: 1px solid; padding: 5px; background-color:#014B83; color:#fff;'>" `
                                         -replace "<td>","<td style='padding: 10px;'>"
