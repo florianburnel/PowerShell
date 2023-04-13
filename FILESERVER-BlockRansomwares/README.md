@@ -1,8 +1,8 @@
 # BlockRansomwares.ps1
 
-Protéger les partages contre les ransomwares (bloquer des extensions)
-Prérequis : PowerShell v3+ et FSRM - Exécutez le script "Prerequis-BlockRansomwares.ps1" pour vérifier les prérequis
-Configuration / Personnalisation avec le fichier BlockRansomwares.psd1
+*Protéger les partages contre les ransomwares (bloquer des extensions)
+*Prérequis : PowerShell v3+ et FSRM - Exécutez le script "Prerequis-BlockRansomwares.ps1" pour vérifier les prérequis
+*Configuration / Personnalisation avec le fichier BlockRansomwares.psd1
 
 # Example
 
