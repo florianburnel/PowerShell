@@ -127,7 +127,7 @@ if($FSRMapiExtCount -eq 0){
 
 # Ajuster la liste des extensions pour inclure/exclure des extensions selon le fichier de configuration (ajout puis exclusion)
 $FSRMapiJsonExt = $FSRMapiJsonExt + $FSRM_ExtensionsToInclude
-$FSRMapiJsonExt = $FSRMapiJsonExt | Where{ $_ -ne $FSRM_ExtensionsToExclude }
+$FSRMapiJsonExt = $FSRMapiJsonExt | Where-Object { $FSRM_ExtensionsToExclude -notcontains $_ }
 
 # Vérifier l'existence du Groupe d'extensions de fichiers : le mettre à jour s'il existe, sinon le créer (et ajouter les extensions).
 if(Get-FsrmFileGroup -Name $FSRM_FilesGroupName -ErrorAction SilentlyContinue){

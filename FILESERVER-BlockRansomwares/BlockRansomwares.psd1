@@ -18,15 +18,15 @@
         # Nom du filtre de fichiers
         FilesFiltreName = "ITC_BlockRansomwares_Filtre"
         # Liste des extensions à exclure
-        ExtensionsToExclude = @("")
+        ExtensionsToExclude = @("*.exemple1","*.exemple2")
         # Liste des extensions à inclure (en supplément de la liste de l'API)
-        ExtensionsToInclude = @("")
-	  # Protéger tous les partages
-	  ProtectAllShares = $false
+        ExtensionsToInclude = @()
+		# Protéger tous les partages
+		ProtectAllShares = $false
         # Liste des dossiers/volumes à protéger (le paramètre ProtectAllShares doit être à $false)
         DirToProtect = @("P:\")
-	  # Exclure certains partages (le paramètre ProtectAllShares doit être à $true)
-	  DirToExclude = @("C:\WINDOWS","C:\")
+		# Exclure certains partages (le paramètre ProtectAllShares doit être à $true)
+		DirToExclude = @("C:\WINDOWS","C:\")
     }
 
     SMTP = @{
