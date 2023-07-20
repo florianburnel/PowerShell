@@ -112,6 +112,7 @@ Write-Log -LogFile $LogFile -Messagetype "STEP" -Message "Partie 1 - Gérer la l
 
 # Récupérer la liste des extensions depuis l'API
 # Old : $FSRMapi = "https://fsrm.experiant.ca/api/v1/get" (plus maintenu)
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 $FSRMapi =  "https://raw.githubusercontent.com/DFFspace/CryptoBlocker/master/KnownExtensions.txt"
 $FSRMapiJsonExt = ((Invoke-WebRequest $FSRMapi -UseBasicParsing -ContentType 'application/json; charset=UTF-8').Content | ConvertFrom-Json).filters
 $FSRMapiExtCount = $FSRMapiJsonExt.Count
