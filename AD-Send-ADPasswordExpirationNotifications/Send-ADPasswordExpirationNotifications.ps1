@@ -13,6 +13,7 @@
 	EMAIL:	florian.burnel@it-connect.fr
 	VERSION HISTORY:
         1.0   29/09/2022
+        1.1   22/02/2024 Modification par Fabien Lauby : ajout du décompte des jours avant l'expiration
 
 #>
 ### Variables modifiables
@@ -48,12 +49,13 @@ Function Send-MailMessageForUser{
           [Parameter(Mandatory=$true)][string]$SendMailUserSurname,
           [Parameter(Mandatory=$true)][string]$SendMailUserEmail,
           [Parameter(Mandatory=$true)][string]$SendMailUserPrincipalName,
-          [Parameter(Mandatory=$true)][string]$SendMailUserPasswordExpirationDate)
+          [Parameter(Mandatory=$true)][string]$SendMailUserPasswordExpirationDate,
+          [Parameter(Mandatory=$true)][string]$SendMailUserPasswordDaysToExpiry)
 
     # Corps de l'email pour les utilisateurs
     $SendMailBody=@"
 <p>Bonjour $SendMailUserGivenName,</p>
-<p>Dans <b>moins de $DateThreshold jours</b>, le mot de passe du compte <b>$SendMailUserPrincipalName</b> va expirer.<br>
+<p>Dans <b>$SendMailUserPasswordDaysToExpiry jours</b>, le mot de passe du compte <b>$SendMailUserPrincipalName</b> va expirer.<br>
 <b>Pensez à le changer</b> avant qu'il arrive à expiration (date d'expiration : $SendMailUserPasswordExpirationDate)</p>
 Cordialement,<br>
 Le service informatique
@@ -90,17 +92,19 @@ Foreach($User in $UsersInfos){
     if(($User."msDS-UserPasswordExpiryTimeComputed" -lt $DateWithThreshold) -and ($User."msDS-UserPasswordExpiryTimeComputed" -gt $DateToday)){
             
             $UserPasswordExpirationDate = [datetime]::FromFileTime($User."msDS-UserPasswordExpiryTimeComputed")
+            $UserPasswordDaysToExpiry =  [int](($User."msDS-UserPasswordExpiryTimeComputed" - $DateToday) / 864000000000)
             $UserObj = New-Object System.Object
             $UserObj | Add-Member -Type NoteProperty -Name GivenName -Value $User.GivenName
             $UserObj | Add-Member -Type NoteProperty -Name Surname -Value $User.Surname
             $UserObj | Add-Member -Type NoteProperty -Name Email -Value $User.mail
             $UserObj | Add-Member -Type NoteProperty -Name UserPrincipalName -Value $User.UserPrincipalName
             $UserObj | Add-Member -Type NoteProperty -Name PasswordExpirationDate -Value ($UserPasswordExpirationDate).ToString('dd/MM/yyyy')
+            $UserObj | Add-Member -Type NoteProperty -Name PasswordDaysToExpiry -Value $UserPasswordDaysToExpiry
 
             $UsersNotifList+=$UserObj
 
             Send-MailMessageForUser -SendMailUserGivenName $User.GivenName -SendMailUserSurname $User.Surname -SendMailUserEmail $User.mail `
-                                    -SendMailUserPrincipalName $User.UserPrincipalName -SendMailUserPasswordExpirationDate ($UserPasswordExpirationDate).ToString('d MMMM yyyy')
+                                    -SendMailUserPrincipalName $User.UserPrincipalName -SendMailUserPasswordExpirationDate ($UserPasswordExpirationDate).ToString('d MMMM yyyy') -SendMailUserPasswordDaysToExpiry $UserPasswordDaysToExpiry
     }
 }
 
